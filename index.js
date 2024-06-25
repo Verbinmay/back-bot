@@ -2,7 +2,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
 const token = "6023728485:AAE8c1_U2bZiRzgJRB51-NeM-YK-JzmQ7dQ";
-const webAppUrl = "https://048c-188-169-249-117.ngrok-free.app/";
+const webAppUrl = "https://d1e8-188-169-249-117.ngrok-free.app/";
 const bot = new TelegramBot(token, { polling: true });
 const app = express();
 app.use(cors());
@@ -51,6 +51,9 @@ bot.on("message", async (msg) => {
     }
   }
 });
+app.get("/", async (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/web-data", async (req, res) => {
   const { queryId, product, totalPrice } = req.body;
@@ -63,7 +66,7 @@ app.post("/web-data", async (req, res) => {
         message_text: `Ваш заказ на сумму ${totalPrice} принят`,
       },
     });
-    return res.status(200).json({});
+    return res.sendStatus(200);
   } catch (error) {
     await bot.answerWebAppQuery(queryId, {
       type: "article",
