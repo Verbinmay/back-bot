@@ -1,3 +1,4 @@
+const fs = require("fs");
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
@@ -91,9 +92,3 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-
-const ssl = {
-  cert: fs.readFileSync("cert/cert.pem"),
-  key: fs.readFileSync("cert/privkey.pem"),
-};
-const server = https.createServer(ssl, app);
