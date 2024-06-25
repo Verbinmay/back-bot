@@ -56,9 +56,9 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/web-data", async (req, res) => {
-  const { queryId, product, totalPrice } = req.body;
+  const { queryId, products, totalPrice } = req.body;
   try {
-    if (!product || !totalPrice) throw new Error("Invalid data");
+    if (!products || !totalPrice) throw new Error("Invalid data");
     await bot.answerWebAppQuery(queryId, {
       type: "article",
       id: queryId,
