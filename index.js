@@ -2,7 +2,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
 const token = "6023728485:AAE8c1_U2bZiRzgJRB51-NeM-YK-JzmQ7dQ";
-const webAppUrl = "https://d1e8-188-169-249-117.ngrok-free.app/";
+const webAppUrl = "https://ebfc-188-169-249-117.ngrok-free.app";
 const bot = new TelegramBot(token, { polling: true });
 const app = express();
 app.use(cors());
