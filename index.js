@@ -51,6 +51,9 @@ bot.on("message", async (msg) => {
     }
   }
 });
+app.get("/", async (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/web-data", async (req, res) => {
   const { queryId, product, totalPrice } = req.body;
@@ -63,7 +66,7 @@ app.post("/web-data", async (req, res) => {
         message_text: `Ваш заказ на сумму ${totalPrice} принят`,
       },
     });
-    return res.status(200).json({});
+    return res.sendStatus(200);
   } catch (error) {
     await bot.answerWebAppQuery(queryId, {
       type: "article",
