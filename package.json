@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "ngrok": "ngrok http 8000 --host-header=\"localhost:8000\""
+    "ngrok": "ngrok http 8000"
   },
   "keywords": [],
   "author": "",

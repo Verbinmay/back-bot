@@ -5,7 +5,13 @@ const token = "6023728485:AAE8c1_U2bZiRzgJRB51-NeM-YK-JzmQ7dQ";
 const webAppUrl = "https://ebfc-188-169-249-117.ngrok-free.app";
 const bot = new TelegramBot(token, { polling: true });
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: webAppUrl, // Замените это вашим доменом
+  optionsSuccessStatus: 200, // некоторые устаревшие браузеры (IE11, различные SmartTV) требуют этот статус
+  methods: "GET, POST", // Разрешенные методы
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 bot.on("message", async (msg) => {
@@ -56,7 +62,6 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/web-data", async (req, res) => {
-  console.log("Web data", req.body);
   const { queryId, products, totalPrice } = req.body;
   try {
     if (!products || !totalPrice) throw new Error("Invalid data");
@@ -68,7 +73,7 @@ app.post("/web-data", async (req, res) => {
         message_text: `Ваш заказ на сумму ${totalPrice} принят`,
       },
     });
-    return res.sendStatus(200);
+    return res.status(500).json({});
   } catch (error) {
     await bot.answerWebAppQuery(queryId, {
       type: "article",
@@ -86,3 +91,9 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+const ssl = {
+  cert: fs.readFileSync("cert/cert.pem"),
+  key: fs.readFileSync("cert/privkey.pem"),
+};
+const server = https.createServer(ssl, app);
